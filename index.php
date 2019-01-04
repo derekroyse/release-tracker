@@ -1,52 +1,53 @@
-<html>
-  <head>
-    <title>Release Tracker - Home</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  </head>
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Home</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+$logged_in = false;
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">My List <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Released</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Add New Titles</a>
-          </li> 
-          <li class="nav-item">
-            <a class="nav-link" href="phptest.php">DB Test</a>
-          </li>                    
-        </ul>
-        <div>
-          Logged in as USERNAME.
-        </div>
-      </div>
-    </nav>
+$content_param = isset($_GET['go']) ? $_GET['go'] : 'home';
+$content_parts = explode(':', $content_param);
+$content_module = count($content_parts) > 0 ? $content_parts[0] : $content_param;
 
-    <!-- Body -->
+if ( $content_module ) {    
+    $content_action = count($content_parts) > 1 ? $content_parts[1] : '';
+    $content = $content_module;
+    if ( $content_action ) {
+        $content .= '/' . $content_action;
+    }
+}
 
+$content_path = dirname( __FILE__ ) . '/views/' . $content . '.php';
+$content_exists = file_exists($content_path);
+$module_path = $content_module == 'home' ? '/' : '?go=' . $content_module;
 
-    <!-- Footer -->
+include 'views/fragments/header.php';
 
+// Load requested page (and create breadcrumbs) if it exists; if not, load the 404 page.
+if ( $content_exists ) {
 
-    <!-- Option JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
-</html>
+    echo '<nav aria-label="breadcrumb">';
+    echo '<ol class="breadcrumb">';
+    
+    // $meta_title = getPageMeta( $content_param, 'title' );
+    $meta_title = empty($meta_title) ? $content_action : $meta_title;
+
+    if ( ucwords($content_action) == '' ) {        
+        echo '<li class="breadcrumb-item">' . ucwords($content_module) . '</li>';
+    } else {            
+        echo '<li class="breadcrumb-item"><a href="' . $module_path . '">' . ucwords($content_module) . '</a></li>';
+        echo '<li class="breadcrumb-item active" aria-current="page">' . ucwords($meta_title) . '</li>';
+    }
+
+    echo '</ol>';
+    echo '</nav>';
+
+  include $content_path;
+
+} else {
+  include 'views/error.php';
+}
+
+include 'views/fragments/footer.php';
+
+?>
