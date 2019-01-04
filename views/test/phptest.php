@@ -3,7 +3,6 @@
     // In the variables section below, replace user and password with your own MySQL credentials as created on your server
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
     if (array_key_exists("host", $url)){
-        print_r($url);
         $server = $url["host"];
         $username = $url["user"];
         $password = $url["pass"];
