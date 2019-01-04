@@ -26,7 +26,7 @@ include 'views/fragments/header.php';
 // Load requested page (and create breadcrumbs) if it exists; if not, load the 404 page.
 if ( $content_exists ) {
 
-    echo '<nav aria-label="breadcrumb">';
+    echo '<nav class="aria-label="breadcrumb">';
     echo '<ol class="breadcrumb">';
     
     // $meta_title = getPageMeta( $content_param, 'title' );

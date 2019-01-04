@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/custom.css" />
 
-  <script src="/js/vendor/jquery-3.3.1.min.js"></script>
-  <script src="/js/vendor/popper.min.js"></script>
-  <script src="/js/vendor/bootstrap.min.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
   <script src="/js/main.js"></script>   
 </head>
 
@@ -42,9 +42,9 @@
       <div>
         <?php
           if ($logged_in){
-            echo 'Logged in as USERNAME. <a href="?go=logout">(Logout)</a>';
+            echo 'Logged in as USERNAME. <a href="?go=account:logout">(Logout)</a>';
           } else {
-            echo '<a href="/views/register">Register</a> or <a href="/views/login">Login</a>';
+            echo '<a href="?go=account:register">Register</a> or <a href="?go=account:login">Login</a>';
           }
         ?>       
       </div>
