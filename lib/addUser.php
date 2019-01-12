@@ -21,8 +21,9 @@
 		VALUES ( ?, ?, ? )";
 
 	$query = $conn->prepare($sql);
+	$hashed_password = crypt($_POST['password'], 'test');
 
-	$query->bind_param('sss', $_POST['username'], $_POST['email'], $_POST['password']);
+	$query->bind_param('sss', $_POST['username'], $_POST['email'], $hashed_password);
 
 	$query->execute();
 	$rowid = $query->affected_rows;

@@ -1,6 +1,7 @@
 // Bind buttons.
 $(function() {
 	$("#registration-submit").click(function(e){registerUser(e);});
+	$("#login-submit").click(function(e){login(e);});
 });
 
 // Check if an email has registed previously.
@@ -91,3 +92,39 @@ function registerUser(e){
 	$('.form-control').val('');
 	e.preventDefault();
 }
+
+function login(e){
+	// if (email and password exist and are valid) {
+	var fd = new FormData();   
+		fd.append('email', document.getElementById("email").value);
+		fd.append('password', document.getElementById("password").value);
+
+	var results = $.ajax({		
+		type: "POST",
+		dataType: "json",
+		data: fd,
+		async: false,
+		processData: false,
+		contentType: false,		
+		url: "lib/login.php",
+		beforeSend: function() {
+			$(document.body).addClass('loading');
+			$( "div" ).css( "opacity", "0.9" );
+		},
+		complete: function(data){
+			// alert(JSON.stringify(data.responseText));
+			var response = JSON.stringify(data.responseText);
+			if (response = 'true'){
+				window.location.href = "/";
+			} else {
+				// else clear fields and provide incorrect password message
+				$('.form-control').val('');
+				alert('Invalid password!');
+			}			
+		},
+	});
+	// } else {
+		// throw up validation
+	//}
+	e.preventDefault();
+};

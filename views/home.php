@@ -6,7 +6,7 @@
                     <h2 class="panel-title">Release Tracker</h2>
                 </div>
                 <div class="panel-body">
-                    Welcome!
+                    <?php echo 'Welcome ' . $_SESSION['username'] . '!';?>
                 </div>
             </div>
         </div>

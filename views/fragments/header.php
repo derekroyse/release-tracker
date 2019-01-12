@@ -41,8 +41,8 @@
       </ul>
       <div>
         <?php
-          if ($logged_in){
-            echo 'Logged in as USERNAME. <a href="?go=account:logout">(Logout)</a>';
+          if ( array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in']){
+            echo 'Logged in as ' . $_SESSION['username'] . '. <a href="?go=account:logout">(Logout)</a>';
           } else {
             echo '<a href="?go=account:register">Register</a> or <a href="?go=account:login">Login</a>';
           }

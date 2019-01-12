@@ -1,9 +1,10 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
-$logged_in = false;
 
 $content_param = isset($_GET['go']) ? $_GET['go'] : 'home';
 $content_parts = explode(':', $content_param);
