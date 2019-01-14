@@ -7,13 +7,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/custom.css" />
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+  <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap4.css"/>
+<!--   <link rel="stylesheet" type="text/css" href="/css/fixedHeader.bootstrap4.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/responsive.bootstrap4.min.css"/> -->
 
-  <script src="/js/jquery-3.3.1.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/main.js"></script>   
+  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="/js/popper.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/main.js"></script>
+  <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="/js/dataTables.bootstrap4.js"></script>
+<!--   <script type="text/javascript" src="/js/dataTables.fixedHeader.min.js"></script>
+  <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="/js/responsive.bootstrap4.min.js"></script>  -->
 </head>
 
 <body>
@@ -37,7 +45,10 @@
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="/?go=test:phptest">DB Test</a>
-        </li>                    
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/?go=test:apitest">API Test</a>
+        </li>                           
       </ul>
       <div>
         <?php
