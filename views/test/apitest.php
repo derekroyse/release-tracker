@@ -26,8 +26,8 @@
         },                              
         "columns": [
             { "data": "id" },
-            { "data": "title"},
-            { "data": "release_date"}
+            { "data": "name"},
+            { "data": "release_dates[0].human"}
         ]
     });
   });
