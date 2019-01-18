@@ -1,4 +1,4 @@
-<table id='releaseTable'>
+<table id='releaseTable' class="table">
 <thead>
     <tr>
         <th>ID</th>
@@ -22,7 +22,6 @@
   $(document).ready(function() {
     var releaseTable = $('#releaseTable').dataTable({
         "processing": true,
-        "serverSide": true,
         "ajax": {
             "url": "/lib/masterList.php",
             "type": "POST",
@@ -34,7 +33,14 @@
             { "data": "release_date"},
             { "data": "type"},
             { "data": "platform"},
-        ]
+        ],
+        createdRow: function( row, data, dataIndex ) {
+          if (data.type == 'Movie (Theatrical Release)'){
+            $( row ).addClass('table-primary');
+          } else if (data.type == 'Video Game'){
+            $( row ).addClass('table-success');
+          }
+        }
     });
   });
 </script>
