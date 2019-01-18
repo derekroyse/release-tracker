@@ -41,7 +41,7 @@
           <a class="nav-link" href="#">Released</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Add New Titles</a>
+          <a class="nav-link" href="/?go=list:master"">Add New Titles</a>
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="/?go=test:phptest">DB Test</a>
