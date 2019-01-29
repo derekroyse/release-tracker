@@ -5,7 +5,7 @@
         <th>Title</th>
         <th>Release Date</th>
         <th>Type</th>
-        <th>Platform</th>
+        <th>Platforms</th>
     </tr>
 </thead>
   <tr>
@@ -38,7 +38,7 @@
             { "data": "platform"},
         ],
         createdRow: function( row, data, dataIndex ) {
-          if (data.type == 'Movie (Theatrical Release)'){
+          if (data.type == 'Movie'){
             $( row ).addClass('table-primary');
           } else if (data.type == 'Video Game'){
             $( row ).addClass('table-success');

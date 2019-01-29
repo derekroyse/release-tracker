@@ -34,8 +34,8 @@
 				$new_array = array('id' => 'mv-' . $movie -> id,
 													'title' => $movie -> title,
 													'release_date' => $movie -> release_date,
-													'type' => 'Movie (Theatrical Release)',
-													'platform' => '');
+													'type' => 'Movie',
+													'platform' => 'Theatrical Release');
 				array_push($master_array, $new_array);
 			}
 			$page_num++;
@@ -45,56 +45,61 @@
 		curl_close($curl);
 
 	// Get VG API Data
+		$year = 2019;		
 		$offset = 0;
-		while ($offset < 2501){
+		while ($offset < 701){
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => "https://api-v3.igdb.com/games?fields=id,name,platforms,release_dates.*&limit=50&filter[release_dates.date][gt]=" . time() . "&offset=" . $offset,
+				CURLOPT_URL => "https://www.giantbomb.com/api/games/?api_key=df05ab362e86a6c9d3bf84ce248469398d89478d&offset=" . $offset . "&format=json&filter=expected_release_year:". $year . "|2025",
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_TIMEOUT => 30,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "GET",
-				CURLOPT_POSTFIELDS => "",
-				CURLOPT_HTTPHEADER => array(
-					"Accept: application/json",
-					"Postman-Token: d2c754b0-78a4-452e-9ac7-e18e03bed008",
-					"cache-control: no-cache",
-					"user-key: c219b1070d2cdfcef8a9cf7bebeca311"
-				),
+				CURLOPT_POSTFIELDS => "{}",
+				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13',
 			));
 
 			$vg_data = curl_exec($curl);
 			$vg_decoded = json_decode($vg_data);
 
 			// Add each title to master array.
-			foreach($vg_decoded as $vg){
-				$counter = 1;				
-				// For each release date:
-				if (isset($vg -> release_dates)){
-					foreach ($vg -> release_dates as $date ){
-						
-						if (isset($date -> date)){
-							$release_date = date('Y-m-d', $date -> date);
-						} else if (isset($date-> human)){
-							$release_date = $date -> human;
-						} else {
-							$release_date = 'TBD';
-						}
-
-						$new_array = array('id' => 'vg-' . $vg -> id . '-' . $counter,
-														'title' => $vg -> name,
-														'release_date' => $release_date,
-														'type' => 'Video Game',
-														'platform' => $date -> platform);
-						array_push($master_array, $new_array);
-						$counter++;
-					}
+			foreach($vg_decoded-> results as $game){	
+				// For each release:					
+				if (isset($game -> release_date)){
+					$release_date = $game -> release_date;
+				} else if (isset($game -> expected_release_day)){
+					$release_date = $game -> expected_release_year . '-' . $game -> expected_release_month . '-' .  $game -> expected_release_day;
+				} else if (isset($game -> expected_release_month)){
+					$dateObj   = DateTime::createFromFormat('!m', $game -> expected_release_month);
+					$monthName = $dateObj->format('F');
+					$release_date = $monthName . ' ' .  $game -> expected_release_year;
+				} else if (isset($game -> expected_release_quarter)){
+					$release_date =  'Q' . $game -> expected_release_quarter . '-' .  $game -> expected_release_year;
+				} else if (isset($game -> expected_release_year)){
+					$release_date = $game -> expected_release_year;								
+				} else {
+					$release_date = 'TBD';
 				}
-			}
 
-			$offset += 50;
+				$platforms = '';
+				if (isset($game -> platforms)){	
+					foreach($game -> platforms as $platform){
+						$platforms .= $platform -> name . ' ';
+					}
+				} else {
+					$platforms = 'TBA';
+				}
+
+				$new_array = array('id' => 'vg-' . $game -> id,
+												'title' => $game -> name,
+												'release_date' => $release_date,
+												'type' => 'Video Game',
+												'platform' => $platforms);
+				array_push($master_array, $new_array);
+			}
+			$offset += 100;
 		}
 
 		$err = curl_error($curl);
@@ -115,7 +120,6 @@
 		// }
 
 	//... or save data to DB (production)
-		// In the variables section below, replace user and password with your own MySQL credentials as created on your server
 		$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 		if (array_key_exists("host", $url)){
 		    $server = $url["host"];
@@ -135,7 +139,8 @@
 			VALUES ( ?, ?, ?, ?, ? )
 			ON DUPLICATE KEY UPDATE 
 				title = VALUES(title),
-				release_date = VALUES(release_date)";
+				release_date = VALUES(release_date),
+				platform = VALUES(platform)";
 
 		$query = $conn->prepare($sql);
 
