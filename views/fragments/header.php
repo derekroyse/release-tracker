@@ -35,21 +35,23 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">My List <span class="sr-only">(current)</span></a>
+        <?php if(array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in']){
+        echo '<li class="nav-item active">
+          <a class="nav-link" href="/?go=list:user">My List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Released</a>
+          <a class="nav-link" href="/?go=list:released">Released</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/?go=list:master"">Add New Titles</a>
-        </li> 
-        <li class="nav-item">
+        </li>';
+        } ?>
+<!--         <li class="nav-item">
           <a class="nav-link" href="/?go=test:phptest">DB Test</a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+<!--         <li class="nav-item">
           <a class="nav-link" href="/?go=test:apitest">API Test</a>
-        </li>                           
+        </li>  -->                          
       </ul>
       <div>
         <?php

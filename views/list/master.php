@@ -50,13 +50,16 @@
       });
 
       if (currentUserID)
-        console.log(currentUserID);
+        $.ajax({
+          url: "/lib/addToList.php",
+          type: "POST",
+          data: ({currentUserID, selectedArray}),
+          success: function(result){
+            alert(result);
+          }
+        });
       else
-        console.log("Not logged in!");
-
-
-      console.log(selectedArray);
-
+        alert("Not logged in!");
     });  
   });
 </script>
