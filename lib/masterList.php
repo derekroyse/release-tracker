@@ -30,10 +30,12 @@
 		    $conn = new mysqli($servername, $username, $password, $db);
 		}
 
-		$sql = "SELECT * FROM titles";
+		$sql = "SELECT * FROM titles
+			WHERE (release_date like '%-%' AND release_date >= ?)
+			OR (release_date not like '%-%')";
 
 		$query = $conn->prepare($sql);
-
+		$query->bind_param('s', date("Y-m-d"));
 		$query->execute();
 		$rowid = $query->affected_rows;
 		$result = $query->get_result();

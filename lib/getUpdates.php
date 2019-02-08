@@ -11,8 +11,9 @@
 		$page_num = 1;
 		while ($page_num < 51){
 			$curl = curl_init();
+			$today = date("Y-m-d");
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=4bfcf1281ed7338461685e64a5cc0f3c&language=en-US&region=US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=" . $page_num . "&primary_release_date.gte=2019-01-14",
+				CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=4bfcf1281ed7338461685e64a5cc0f3c&language=en-US&region=US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=" . $page_num . "&primary_release_date.gte=2019-02-08",
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
@@ -33,7 +34,8 @@
 			foreach($response_json as $movie){
 				$new_array = array('id' => 'mv-' . $movie -> id,
 													'title' => $movie -> title,
-													'release_date' => $movie -> release_date,
+													'release_date' => $movie -> release_date . ' 00:00:00',
+													'release_accuracy' => 5,
 													'type' => 'Movie',
 													'platform' => 'Theatrical Release');
 				array_push($master_array, $new_array);
@@ -44,13 +46,15 @@
 		$err = curl_error($curl);
 		curl_close($curl);
 
-	// Get VG API Data
-		$year = 2019;		
+	// // Get VG API Data
+		$minYear = date("Y");
+		$maxYear = (int)$minYear;
+		$maxYear = (string)$maxYear + 5;
 		$offset = 0;
 		while ($offset < 701){
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => "https://www.giantbomb.com/api/games/?api_key=df05ab362e86a6c9d3bf84ce248469398d89478d&offset=" . $offset . "&format=json&filter=expected_release_year:". $year . "|2025",
+				CURLOPT_URL => "https://www.giantbomb.com/api/games/?api_key=df05ab362e86a6c9d3bf84ce248469398d89478d&offset=" . $offset . "&format=json&filter=expected_release_year:". $minYear . "|" . $maxYear,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
@@ -67,20 +71,41 @@
 			// Add each title to master array.
 			foreach($vg_decoded-> results as $game){	
 				// For each release:					
-				if (isset($game -> release_date)){
-					$release_date = $game -> release_date;
-				} else if (isset($game -> expected_release_day)){
-					$release_date = $game -> expected_release_year . '-' . $game -> expected_release_month . '-' .  $game -> expected_release_day;
-				} else if (isset($game -> expected_release_month)){
-					$dateObj   = DateTime::createFromFormat('!m', $game -> expected_release_month);
-					$monthName = $dateObj->format('F');
-					$release_date = $monthName . ' ' .  $game -> expected_release_year;
-				} else if (isset($game -> expected_release_quarter)){
-					$release_date =  'Q' . $game -> expected_release_quarter . '-' .  $game -> expected_release_year;
-				} else if (isset($game -> expected_release_year)){
-					$release_date = $game -> expected_release_year;								
+				if (!isset($game -> original_release_date)) {
+					if (isset($game -> release_date)){
+						$release_date = $game -> release_date -> date . ' 00:00:00';
+						$release_accuracy = 5;
+					} else if (isset($game -> expected_release_day)){
+							$release_date = $game -> expected_release_year . '-' . $game -> expected_release_month . '-' .  $game -> expected_release_day . ' 00:00:00';
+							$release_accuracy = 5;
+					} else if (isset($game -> expected_release_month)){
+							$release_date  = $game -> expected_release_year . '-' . $game -> expected_release_month . '-31 23:59:57';
+							$release_accuracy = 4;
+					} else if (isset($game -> expected_release_quarter)){
+							$release_accuracy = 3;
+							switch($game -> expected_release_quarter) {
+								case 1:
+									$release_date = $game -> expected_release_year . '-3-31 23:59:58';
+									break;
+								case 2:
+									$release_date = $game -> expected_release_year . '-6-30 23:59:58';
+									break;
+								case 3:
+									$release_date = $game -> expected_release_year . '-9-30 23:59:58';
+									break;
+								case 4:
+									$release_date = $game -> expected_release_year . '-12-31 23:59:58';
+									break;
+							}
+					} else if (isset($game -> expected_release_year)){
+						$release_date   = $game -> expected_release_year . '-12-31 23:59:59';
+						$release_accuracy = 2;
+					} else {
+						$release_date = '2099-12-31 23:59:59';
+						$release_accuracy = 1;
+					}
 				} else {
-					$release_date = 'TBD';
+					$release_accuracy = 0;
 				}
 
 				$platforms = '';
@@ -92,12 +117,15 @@
 					$platforms = 'TBA';
 				}
 
-				$new_array = array('id' => 'vg-' . $game -> id,
-												'title' => $game -> name,
-												'release_date' => $release_date,
-												'type' => 'Video Game',
-												'platform' => $platforms);
-				array_push($master_array, $new_array);
+				if ($release_accuracy > 0) {
+					$new_array = array('id' => 'vg-' . $game -> id,
+													'title' => $game -> name,
+													'release_date' => $release_date,
+													'release_accuracy' => $release_accuracy,
+													'type' => 'Video Game',
+													'platform' => $platforms);
+					array_push($master_array, $new_array);
+				}
 			}
 			$offset += 100;
 		}
@@ -105,7 +133,7 @@
 		$err = curl_error($curl);
 		curl_close($curl);
 
-	// Return data (testing)...
+	//Return data (testing)...
 		// $returnArray = new stdClass();
 		// $returnArray->data = $master_array;
 		// $response = json_encode($returnArray);
@@ -135,16 +163,17 @@
 		    $conn = new mysqli($servername, $username, $password, $db);
 		}
 
-		$sql = "INSERT INTO titles(id, title, release_date, platform, type)
-			VALUES ( ?, ?, ?, ?, ? )
+		$sql = "INSERT INTO titles(id, title, release_date, platform, type, release_accuracy)
+			VALUES ( ?, ?, ?, ?, ?, ?)
 			ON DUPLICATE KEY UPDATE 
 				title = VALUES(title),
 				release_date = VALUES(release_date),
+				release_accuracy = VALUES(release_accuracy),
 				platform = VALUES(platform)";
 
 		$query = $conn->prepare($sql);
 
-		$query->bind_param('sssss', $id, $title, $release_date, $platform, $type);
+		$query->bind_param('ssssss', $id, $title, $release_date, $platform, $type, $release_accuracy);
 
 		$rows_added = 0;
 
@@ -152,6 +181,7 @@
 				$id = $row['id'];
 				$title = $row['title'];
 				$release_date = $row['release_date'];
+				$release_accuracy = $row['release_accuracy'];
 				$platform = $row['platform'];
 				$type = $row['type'];
 				$query->execute();
@@ -160,15 +190,10 @@
 		}
 		
 		$query = null;
-
-		if(!$rowid){
-			echo 'Error: Could not add titles.';
-		} else {
-			echo $rows_added . ' titles added successfully!';
-		}	
+		
+		echo $rows_added . ' titles added successfully!';
 
 		echo "<pre>";
     print_r($master_array);
     echo "</pre>";
-
 ?>
