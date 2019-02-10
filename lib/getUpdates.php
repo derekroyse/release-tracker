@@ -37,7 +37,7 @@
 													'release_date' => $movie -> release_date . ' 00:00:00',
 													'release_accuracy' => 5,
 													'type' => 'Movie',
-													'platform' => 'Theatrical Release');
+													'platform' => 'Theatrical');
 				array_push($master_array, $new_array);
 			}
 			$page_num++;

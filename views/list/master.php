@@ -1,10 +1,68 @@
-<button class="addToList">Add selected titles to your list.</button>
+<button type="button" class="btn btn-success thisYear">This Year</button>
+<button type="button" class="btn btn-warning nextYear">Next Year</button>
+<button type="button" class="btn btn-danger futureYears">2021 and Beyond</button>
+<button type="button" class="btn btn-info filtersButton">Filters</button>
+<div id="filterPanel" class="container-fluid" style="background-color: #17a2b8">
+  Type 
+  <br>
+  <div class="row">
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Movies
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Video Games
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Comics
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Music
+      </label>
+    </div>
+  </div>
+  <hr>
+  Platform <!-- Platforms displayed based on Types selected above.  -->
+  <br>
+  <!-- Video Game Platforms -->
+  <div id="vgPlatforms" class="row">
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> PC
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> PS4
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Xbone
+      </label>
+    </div>
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" checked autocomplete="off"> Switch
+      </label>
+    </div>
+  </div>
+</div>
+<br>
+<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
+
 <table id='releaseTable' class="table">
 </table>
-<button class="addToList">Add selected titles to your list.</button>
-<?php echo date("Y-m-d")?>
-<script type="text/javascript">  
-  $(document).ready(function() {
+<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
+
+<script type="text/javascript">
+  $(document).ready(function() {    
     var releaseTable = $('#releaseTable').DataTable({
         aLengthMenu: [
         [25, 50, 100, 200, -1],
@@ -12,6 +70,7 @@
         "processing": true,
         "paging": false,
         "order": [[3, "asc"]],
+        "searching": false,
         "ajax": {
             "url": "/lib/masterList.php",
             "type": "POST",
@@ -114,6 +173,19 @@
         });
       else
         alert("Not logged in!");
-    });  
+    });
+
+    $('.filtersButton').on('click', function () {
+      $('#filterPanel').toggle();
+    });
+
+    // Disable sorting when clicking on the Title header, move it to the arrrows only.
+    //$('#releaseTable thead th:nth-of-type(2)').append( '&nbsp;<input type="text" placeholder="Search Title" />' ).off();
+
+    //$('#releaseTable thead .sorting ::before').on( 'click', function () {
+    //  console.log('test');
+    //});
+
+    // On click filter button, look at which icons are checked and visible and filter accordingly
   });
 </script>
