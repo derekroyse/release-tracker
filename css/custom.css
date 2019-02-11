@@ -73,3 +73,12 @@
 	background-color: yellow;
 	border-color: black;
 }
+
+.btn{
+	width:100px;
+	margin-right:5px;
+}
+
+.addToList{
+	width:150px;
+}

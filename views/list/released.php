@@ -22,7 +22,7 @@
             "url": "/lib/getList.php",
             "type": "POST",
             "dataType": 'json',
-            "data": ({currentUserID, "listType": "user"})
+            "data": ({currentUserID, "listType": "released"})
         },                              
         "columns": [
             { title:"ID", "data": "id", render: function (data, type, row) {

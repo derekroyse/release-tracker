@@ -1,10 +1,9 @@
 <?php
 	// Report errors while testing.
-		// TODO: Remove this.
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 
-		// Master array that holds all media types
+	// Master array that holds all media types
 		$master_array = array();  
 
 	// Get Movie API Data

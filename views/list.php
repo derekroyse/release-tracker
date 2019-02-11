@@ -1,59 +1,3 @@
-<!-- <button type="button" class="btn btn-success thisYear">This Year</button>
-<button type="button" class="btn btn-warning nextYear">Next Year</button>
-<button type="button" class="btn btn-danger futureYears" style="width:150px">2021 and Beyond</button>
-<button type="button" class="btn btn-info filtersButton">Filters</button>
-<div id="filterPanel" class="container-fluid">
-  Type 
-  <br>
-  <div class="row">
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-Movies active">
-        <input type="checkbox" checked autocomplete="off"> Movies
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-VideoGames active">
-        <input type="checkbox" checked autocomplete="off"> Games
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="checkbox" checked autocomplete="off"> Comics
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="checkbox" checked autocomplete="off"> Music
-      </label>
-    </div>
-  </div>
-  <hr>
-  Platform
-  <br>
-  <div id="vgPlatforms" class="row">
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-PC active">
-        <input type="checkbox" checked autocomplete="off"> PC
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-PS4 active">
-        <input type="checkbox" checked autocomplete="off"> PS4
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-Xbox active">
-        <input type="checkbox" checked autocomplete="off"> Xbox One
-      </label>
-    </div>
-    <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-Switch active">
-        <input type="checkbox" checked autocomplete="off"> Switch
-      </label>
-    </div>
-  </div>
-</div>
-<br> -->
 <button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
 
 <table id='releaseTable' class="table">
@@ -61,7 +5,16 @@
 <button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
 
 <script type="text/javascript">
-  $(document).ready(function() {    
+  $(document).ready(function() { 
+    var currentUserID = "<?php 
+      if(array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in']){ 
+        echo $_SESSION['userID'];
+      } else {
+        echo null;
+      }
+    ?>";
+    var listType = "<?php echo $_GET['type'];?>";
+
     var releaseTable = $('#releaseTable').DataTable({
         aLengthMenu: [
         [25, 50, 100, 200, -1],
@@ -74,7 +27,7 @@
             "url": "/lib/getList.php",
             "type": "POST",
             "dataType": 'json',
-            "data": ({"listType": "master"})
+            "data": ({currentUserID, "listType": listType})
         },                              
         "columns": [
             { title:"ID", "data": "id", render: function (data, type, row) {
