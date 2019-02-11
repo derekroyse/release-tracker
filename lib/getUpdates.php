@@ -29,7 +29,7 @@
 			} else {
 				break;
 			}
-			
+
 			// Add each title to master array.
 			foreach($response_json as $movie){
 				$new_array = array('id' => 'mv-' . $movie -> id,
@@ -71,7 +71,7 @@
 			// Add each title to master array.
 			foreach($vg_decoded-> results as $game){	
 				// For each release:					
-				if (!isset($game -> original_release_date)) {
+				//if (!isset($game -> original_release_date)) {
 					if (isset($game -> release_date)){
 						$release_date = $game -> release_date -> date . ' 00:00:00';
 						$release_accuracy = 5;
@@ -104,14 +104,40 @@
 						$release_date = '2099-12-31 23:59:59';
 						$release_accuracy = 1;
 					}
-				} else {
-					$release_accuracy = 0;
-				}
+				//} else {
+				//	$release_accuracy = 0;
+				//}
+
+				$platformArray = array(
+		    	"PlayStation 4"  => 'PS4',
+		    	"Xbox One" => "Xbox",
+		    	"Nintendo Switch" => "Switch",
+		    	"iPhone" => "iPhone",
+		    	"iPad" => "iPad",
+		    	"Wii U" => "WiiU",
+		    	"Nintendo 3DS" => "3DS",
+		    	"Nintendo 3DS eShop" => "3DS",
+		    	"PlayStation Vita" => "Vita",
+		    	"PlayStation Network (Vita)" => "Vita(PSN)",
+		    	"Mac" => "Mac",
+		    	"PC" => "PC",
+		    	"Browser" => "Browser",
+		    	"Android" => "Android",
+		    	"Linux" => "Linux",
+		    	"Xbox 360 Games Store" => "360",
+		    	"Windows Phone" => "WindowsPhone",
+		    	"Atari 2600" => "2600",
+		    	"Arcade" => "Arcade",
+		    	"New Nintendo 3DS"  => "3DS",
+		    	"PlayStation Network (PS3)" => "PS3(PSN)",
+		    	"Amazon Fire TV" => "FireTV",
+		    	"Nintendo Entertainment System" => "NES"
+				);				
 
 				$platforms = '';
 				if (isset($game -> platforms)){	
 					foreach($game -> platforms as $platform){
-						$platforms .= $platform -> name . ' ';
+						$platforms .= $platformArray[$platform -> name] . ' ';
 					}
 				} else {
 					$platforms = 'TBA';
@@ -196,4 +222,6 @@
 		echo "<pre>";
     print_r($master_array);
     echo "</pre>";
+
+    echo $maxYear;
 ?>

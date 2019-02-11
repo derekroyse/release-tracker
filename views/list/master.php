@@ -2,17 +2,17 @@
 <button type="button" class="btn btn-warning nextYear">Next Year</button>
 <button type="button" class="btn btn-danger futureYears">2021 and Beyond</button>
 <button type="button" class="btn btn-info filtersButton">Filters</button>
-<div id="filterPanel" class="container-fluid" style="background-color: #17a2b8">
+<div id="filterPanel" class="container-fluid">
   Type 
   <br>
   <div class="row">
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-Movies active">
         <input type="checkbox" checked autocomplete="off"> Movies
       </label>
     </div>
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-VideoGames active">
         <input type="checkbox" checked autocomplete="off"> Video Games
       </label>
     </div>
@@ -33,22 +33,22 @@
   <!-- Video Game Platforms -->
   <div id="vgPlatforms" class="row">
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-PC active">
         <input type="checkbox" checked autocomplete="off"> PC
       </label>
     </div>
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-PS4 active">
         <input type="checkbox" checked autocomplete="off"> PS4
       </label>
     </div>
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="checkbox" checked autocomplete="off"> Xbone
+      <label class="btn btn-Xbox active">
+        <input type="checkbox" checked autocomplete="off"> Xbox One
       </label>
     </div>
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-Switch active">
         <input type="checkbox" checked autocomplete="off"> Switch
       </label>
     </div>
@@ -136,7 +136,18 @@
             },
             {"data": "release_date", "visible":false}, 
             { title:"Type", "data": "type"},
-            { title:"Platform(s)", "data": "platform"},
+            { title:"Platform(s)", "data": "platform", render: function (data, type, row) {
+                var returnString = "";
+                var platformList = data.split(" ");
+
+                //loop through array, adding the appropriate color to each element and adding it to the return string
+                platformList.forEach(function(platform){
+                  returnString += '<span class="btn btn-' + platform + '">' + platform + '</span>';
+                });
+
+                return returnString;
+              }
+            },
         ],
         createdRow: function( row, data, dataIndex ) {
           if (data.type == 'Movie'){
