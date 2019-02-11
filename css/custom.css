@@ -6,79 +6,89 @@
 	background-color:#77deee;
 }
 
-.btn-PC{
+.platform-badge{
 	color: #fff;
+	font-size:12px;
+	font-weight:bold;
+	width:100px;
+	margin-right:5px;
+
+	padding-bottom: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+
+	margin-bottom:10px;
+}
+
+.badge-PC{
 	background-color: red;
 	border-color: darkred;
 }
 
-.btn-Vita,
-/*.btn-Vita(PSN),*/
-/*.btn-PS3(PSN),*/
-.btn-PS4{
-	color: #fff;
+.badge-Vita,
+.badge-Vita\(PSN\),
+.badge-PS3\(PSN\),
+.badge-PS4{
 	background-color: blue;
 	border-color: darkblue;
 }
 
-.btn-Switch,
-.btn-WiiU,
-.btn-3DS{
-	color: #fff;
+.badge-Switch,
+.badge-WiiU,
+.badge-3DS{
 	background-color: BlueViolet ;
 	border-color: DarkViolet;
 }
 
-.btn-Xbox,
-.btn-360,
-.btn-WindowsPhone{
-	color: #fff;
+.badge-Xbox,
+.badge-360,
+.badge-WindowsPhone{
 	background-color: Green ;
 	border-color: Green;
 }
 
-.btn-Theatrical,
-.btn-Arcade,
-.btn-NES,
-.btn-Browser,
-.btn-Android,
-.btn-Linux,
-.btn-2600,
-.btn-FireTV{
-	color: #fff;
+.badge-Theatrical,
+.badge-Arcade,
+.badge-NES,
+.badge-Browser,
+.badge-Android,
+.badge-Linux,
+.badge-2600,
+.badge-FireTV{
 	background-color: gray ;	
 	border-color: gray;
 }
 
-.btn-iPad,
-.btn-iPhone,
-.btn-Mac{
+.badge-iPad,
+.badge-iPhone,
+.badge-Mac{
 	color: black;
 	background-color: white ;	
 	border-color: black;
 }
 
-.btn-Movies{
+.badge-Movie{
 	color:black;
 	background-color: #c3e6cb;
 	border-color: #8fd19e;
 }
-.btn-VideoGames{
+.badge-Game{
 	color:black;
 	background-color: #b8daff;
 	border-color: #7abaff;
 }
-.btn-TBA{
+.badge-TBA{
 	color:black;
 	background-color: yellow;
 	border-color: black;
 }
 
-.btn{
-	width:100px;
-	margin-right:5px;
-}
+.addToList,
+.removeFromList{
+	width:200px;
+	position:fixed;
 
-.addToList{
-	width:150px;
+    top:100px;
+    right:75px;
 }

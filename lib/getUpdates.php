@@ -1,7 +1,7 @@
 <?php
 	// Report errors while testing.
-		error_reporting(E_ALL);
-		ini_set('display_errors', '1');
+		// error_reporting(E_ALL);
+		// ini_set('display_errors', '1');
 
 	// Master array that holds all media types
 		$master_array = array();  
@@ -147,7 +147,7 @@
 													'title' => $game -> name,
 													'release_date' => $release_date,
 													'release_accuracy' => $release_accuracy,
-													'type' => 'Video Game',
+													'type' => 'Game',
 													'platform' => $platforms);
 					array_push($master_array, $new_array);
 				}
@@ -194,6 +194,7 @@
 				title = VALUES(title),
 				release_date = VALUES(release_date),
 				release_accuracy = VALUES(release_accuracy),
+				type = VALUES(type),
 				platform = VALUES(platform)";
 
 		$query = $conn->prepare($sql);
@@ -221,6 +222,4 @@
 		echo "<pre>";
     print_r($master_array);
     echo "</pre>";
-
-    echo $maxYear;
 ?>

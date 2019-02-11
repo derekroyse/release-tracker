@@ -1,8 +1,13 @@
-<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
-
-<table id='releaseTable' class="table">
+<table id='releaseTable' class="table table-striped" style="width:100%">
 </table>
-<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>
+
+<?php
+  if($_GET['type'] == 'master'){ 
+    echo '<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>';
+  } else {
+    echo '<button class="btn btn-danger removeFromList">Remove selected titles from your list.</button>';
+  }
+?>
 
 <script type="text/javascript">
   $(document).ready(function() { 
@@ -30,7 +35,7 @@
             "data": ({currentUserID, "listType": listType})
         },                              
         "columns": [
-            { title:"ID", "data": "id", render: function (data, type, row) {
+            { title:"", "data": "id", "orderable": false, render: function (data, type, row) {
                 return '<input type="checkbox" value="' + data + '"></input>';
               }
             },
@@ -88,14 +93,17 @@
               }
             },
             {"data": "release_date", "visible":false}, 
-            { title:"Type", "data": "type"},
-            { title:"Platform(s)", "data": "platform", render: function (data, type, row) {
+            { title:"Type", "data": "type", render: function (data, type, row) {
+                return '<span class="btn platform-badge badge-' + data + '">' + data + '</span>';
+              }
+            },
+            { title:"Platform(s)", "data": "platform", "width": 600, render: function (data, type, row) {
                 var returnString = "";
                 var platformList = data.split(" ");
 
                 //loop through array, adding the appropriate color to each element and adding it to the return string
                 platformList.forEach(function(platform){
-                  returnString += '<span class="btn btn-' + platform + '">' + platform + '</span>';
+                  returnString += '<span class="btn platform-badge badge-' + platform + '">' + platform + '</span>';
                 });
 
                 return returnString;
@@ -103,11 +111,12 @@
             },
         ],
         createdRow: function( row, data, dataIndex ) {
-          if (data.type == 'Movie'){
-            $( row ).addClass('table-primary');
-          } else if (data.type == 'Video Game'){
-            $( row ).addClass('table-success');
-          }
+          // Color coded rows.
+          // if (data.type == 'Movie'){
+          //   $( row ).addClass('table-primary');
+          // } else if (data.type == 'Video Game'){
+          //   $( row ).addClass('table-success');
+          // }
         }
     });
 
@@ -124,6 +133,7 @@
 
       $("input:checkbox:checked").each(function(){
         selectedArray.push($(this).val());
+        $(this).prop("checked", false);
       });
 
       if (currentUserID)
@@ -133,6 +143,35 @@
           data: ({currentUserID, selectedArray}),
           success: function(result){
             alert(result);
+          }
+        });
+      else
+        alert("Not logged in!");
+    });
+
+    $('.removeFromList').on( 'click', function () {
+      var currentUserID = "<?php 
+        if(array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in']){ 
+          echo $_SESSION['userID'];
+        } else {
+          echo null;
+        }
+      ?>";
+
+      var selectedArray = [];
+
+      $("input:checkbox:checked").each(function(){
+        selectedArray.push($(this).val());
+      });
+
+      if (currentUserID)
+        $.ajax({
+          url: "/lib/removeFromList.php",
+          type: "POST",
+          data: ({currentUserID, selectedArray}),
+          success: function(result){
+            alert(result);
+            window.location.reload();
           }
         });
       else
