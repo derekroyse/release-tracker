@@ -1,4 +1,4 @@
-<table id='releaseTable' class="table table-striped" style="width:100%">
+<table id='releaseTable' class="table table-striped table-hover" style="width:100%;">
 </table>
 
 <?php
@@ -10,7 +10,7 @@
 ?>
 
 <script type="text/javascript">
-  $(document).ready(function() { 
+  $(document).ready(function() {   
     var currentUserID = "<?php 
       if(array_key_exists('logged_in', $_SESSION) && $_SESSION['logged_in']){ 
         echo $_SESSION['userID'];
@@ -181,6 +181,8 @@
     $('.filtersButton').on('click', function () {
       $('#filterPanel').toggle();
     });
+
+    $('thead').addClass('thead-dark');
 
     // Disable sorting when clicking on the Title header, move it to the arrrows only.
     //$('#releaseTable thead th:nth-of-type(2)').append( '&nbsp;<input type="text" placeholder="Search Title" />' ).off();

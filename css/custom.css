@@ -6,12 +6,14 @@
 	background-color:#77deee;
 }
 
-.platform-badge{
+.platform-badge,
+.platform-badge:hover{
 	color: #fff;
 	font-size:12px;
 	font-weight:bold;
 	width:100px;
 	margin-right:5px;
+	cursor:default !important;
 
 	padding-bottom: 6px;
 	padding-left: 6px;
@@ -62,23 +64,30 @@
 
 .badge-iPad,
 .badge-iPhone,
-.badge-Mac{
+.badge-Mac,
+.badge-iPad:hover,
+.badge-iPhone:hover,
+.badge-Mac:hover{
 	color: black;
 	background-color: white ;	
 	border-color: black;
 }
 
-.badge-Movie{
+.badge-Movie,
+.badge-Movie:hover{
 	color:black;
 	background-color: #c3e6cb;
 	border-color: #8fd19e;
 }
-.badge-Game{
+
+.badge-Game,
+.badge-Game:hover{
 	color:black;
 	background-color: #b8daff;
 	border-color: #7abaff;
 }
-.badge-TBA{
+.badge-TBA,
+.badge-TBA:hover{
 	color:black;
 	background-color: yellow;
 	border-color: black;
@@ -91,4 +100,18 @@
 
     top:100px;
     right:75px;
+}
+
+.center{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#registration-submit,
+#login-submit{
+	width:200px;
+}
+
+.fixed-bottom{
+	margin-bottom:50px;
 }

@@ -112,19 +112,16 @@ function login(e){
 			$( "div" ).css( "opacity", "0.9" );
 		},
 		complete: function(data){
-			// alert(JSON.stringify(data.responseText));
 			var response = JSON.stringify(data.responseText);
-			if (response = 'true'){
+			if (response == '"true"'){
 				window.location.href = "/";
 			} else {
 				// else clear fields and provide incorrect password message
 				$('.form-control').val('');
 				alert('Invalid password!');
-			}			
+			}
 		},
 	});
-	// } else {
-		// throw up validation
-	//}
+
 	e.preventDefault();
 };

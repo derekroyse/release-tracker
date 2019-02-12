@@ -6,4 +6,7 @@ session_unset();
 session_destroy();
 ?>
 
-Sucessfully logged out.
+<script type="text/javascript">
+	alert('Successfully logged out!');
+	window.location.href = "/";
+</script>
