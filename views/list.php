@@ -1,13 +1,14 @@
-<table id='releaseTable' class="table table-striped table-hover" style="width:100%;">
-</table>
+<div id="main-content" class="container-fluid">
+  <table id='releaseTable' class="table table-striped table-hover" style="width:100%;"></table>
 
-<?php
-  if($_GET['type'] == 'master'){ 
-    echo '<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>';
-  } else {
-    echo '<button class="btn btn-danger removeFromList">Remove selected titles from your list.</button>';
-  }
-?>
+  <?php
+    if($_GET['type'] == 'master'){ 
+      echo '<button type="button" class="btn btn-primary addToList">Add selected titles to your list.</button>';
+    } else {
+      echo '<button class="btn btn-danger removeFromList">Remove selected titles from your list.</button>';
+    }
+  ?>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function() {   
@@ -22,12 +23,17 @@
 
     var releaseTable = $('#releaseTable').DataTable({
         aLengthMenu: [
-        [25, 50, 100, 200, -1],
-        [25, 50, 100, 200, "All"]],
+          [25, 50, 100, 200, -1],
+          [25, 50, 100, 200, "All"]],
         "processing": true,
         "paging": false,
-        "order": [[3, "asc"]],
+        "order": [[2, "asc"], [1, "asc"]],
         "searching": false,
+        "fnDrawCallback": function(oSettings){
+          if ( $("body").height() > $(window).height() ){
+            $('footer').css("position", "relative");
+          }
+        },
         "ajax": {
             "url": "/lib/getList.php",
             "type": "POST",
@@ -35,64 +41,68 @@
             "data": ({currentUserID, "listType": listType})
         },                              
         "columns": [
-            { title:"", "data": "id", "orderable": false, render: function (data, type, row) {
+            { title:"", "data": "id", "orderable": false, 
+              render: function (data, type, row) {
                 return '<input type="checkbox" value="' + data + '"></input>';
               }
             },
-            { title:"Title", "data": "title"},
-            { title:"Release Date", 
+            { title:"Title", "data": "title", className: "title-column",},
+            { title:"Release Date", "data": "release_date",
                 render: function (data, type, row) {
-                  var jsDate = new Date(row.release_date);                  
-                  var day = jsDate.getDate();
-                  var month = jsDate.getMonth();
-                  var year = jsDate.getFullYear();
-                  var monthNames = ["January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                  ];
+                  if(type == 'display'){
+                    var jsDate = new Date(row.release_date);                  
+                    var day = jsDate.getDate();
+                    var month = jsDate.getMonth();
+                    var year = jsDate.getFullYear();
+                    var monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"
+                    ];
 
-                  switch(month){
-                    case 1:
-                    case 2:
-                    case 3:
-                      var quarter = '1';
-                      break;
-                    case 4:
-                    case 5:
-                    case 6:
-                      var quarter = '2';
-                      break;
-                    case 7:
-                    case 8:
-                    case 9:
-                      var quarter = '3';
-                      break;
-                    case 10:
-                    case 11:
-                    case 12:
-                      var quarter = '4';
-                      break;
-                  }
+                    switch(month){
+                      case 1:
+                      case 2:
+                      case 3:
+                        var quarter = '1';
+                        break;
+                      case 4:
+                      case 5:
+                      case 6:
+                        var quarter = '2';
+                        break;
+                      case 7:
+                      case 8:
+                      case 9:
+                        var quarter = '3';
+                        break;
+                      case 10:
+                      case 11:
+                      case 12:
+                        var quarter = '4';
+                        break;
+                    }
 
-                  switch(row.release_accuracy){
-                    case 1:
-                      return 'TBD';
-                      break;
-                    case 2:
-                      return year;
-                      break;
-                    case 3:
-                      return 'Q' + quarter + ' ' + year;
-                      break;
-                    case 4:
-                      return monthNames[month] + ' ' + year;
-                      break;
-                    case 5:
-                      return monthNames[month] + ' ' + day + ', ' + year;
-                      break;
+                    switch(row.release_accuracy){
+                      case 1:
+                        return 'TBD';
+                        break;
+                      case 2:
+                        return year;
+                        break;
+                      case 3:
+                        return 'Q' + quarter + ' ' + year;
+                        break;
+                      case 4:
+                        return monthNames[month] + ' ' + year;
+                        break;
+                      case 5:
+                        return monthNames[month] + ' ' + day + ', ' + year;
+                        break;
+                    }
+                  } else {
+                    return data;
                   }
               }
             },
-            {"data": "release_date", "visible":false}, 
             { title:"Type", "data": "type", render: function (data, type, row) {
                 return '<span class="btn platform-badge badge-' + data + '">' + data + '</span>';
               }

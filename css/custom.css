@@ -1,117 +1,200 @@
-#main-container {
-	margin-top: 15px;
-}
+/* Site wide styles*/
+	body{
+	 	background-image: url("/images/bg.jpeg");
+	 	background-attachment: fixed;
+	 	background-color: #2952a3;
+	}
 
-#filterPanel{
-	background-color:#77deee;
-}
+	main{
+		width:70%; 
+		margin-left:auto; 
+		margin-right:auto;
+	}
 
-.platform-badge,
-.platform-badge:hover{
-	color: #fff;
-	font-size:12px;
-	font-weight:bold;
-	width:100px;
-	margin-right:5px;
-	cursor:default !important;
+	footer{
+		color:white;
+		font-weight:bold;
+		position:fixed;
+	    bottom:0;
+	    width:100%;
+	    padding-bottom:10px;
+	    padding-top:15px;
+	    opacity:10%;
+	}
 
-	padding-bottom: 6px;
-	padding-left: 6px;
-	padding-right: 6px;
-	padding-top: 6px;
+	footer a{
+		color:yellow;
+	}
 
-	margin-bottom:10px;
-}
+	#main-container {
+		margin-top: 15px;	
+	}
 
-.badge-PC{
-	background-color: red;
-	border-color: darkred;
-}
+	.navbar-text{
+		color: rgba(255,255,255,.5);
+	}
 
-.badge-Vita,
-.badge-Vita\(PSN\),
-.badge-PS3\(PSN\),
-.badge-PS4{
-	background-color: blue;
-	border-color: darkblue;
-}
+	.navbar-links{
+		padding-left:200px;
+	}
 
-.badge-Switch,
-.badge-WiiU,
-.badge-3DS{
-	background-color: BlueViolet ;
-	border-color: DarkViolet;
-}
+/* List page styles*/
+	#filterPanel{
+		background-color:#77deee;
+	}
 
-.badge-Xbox,
-.badge-360,
-.badge-WindowsPhone{
-	background-color: Green ;
-	border-color: Green;
-}
+	.addToList,
+	.removeFromList{
+		width:200px;
+		position:fixed;
 
-.badge-Theatrical,
-.badge-Arcade,
-.badge-NES,
-.badge-Browser,
-.badge-Android,
-.badge-Linux,
-.badge-2600,
-.badge-FireTV{
-	background-color: gray ;	
-	border-color: gray;
-}
+	    top:100px;
+	    right:75px;
+	}
 
-.badge-iPad,
-.badge-iPhone,
-.badge-Mac,
-.badge-iPad:hover,
-.badge-iPhone:hover,
-.badge-Mac:hover{
-	color: black;
-	background-color: white ;	
-	border-color: black;
-}
+	.center{
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-.badge-Movie,
-.badge-Movie:hover{
-	color:black;
-	background-color: #c3e6cb;
-	border-color: #8fd19e;
-}
+	table.dataTable.table-striped tbody tr:nth-of-type(odd) {
+	    background-color: #d9e6f2;
+	}
+	table.dataTable.table-striped tbody tr:nth-of-type(even) {
+	    background-color: #d9d9d9;
+	}
 
-.badge-Game,
-.badge-Game:hover{
-	color:black;
-	background-color: #b8daff;
-	border-color: #7abaff;
-}
-.badge-TBA,
-.badge-TBA:hover{
-	color:black;
-	background-color: yellow;
-	border-color: black;
-}
+	#releaseTable_info{
+		color:white;
+	}
 
-.addToList,
-.removeFromList{
-	width:200px;
-	position:fixed;
+	#releaseTable{
+		border-collapse:collapse !important;
+	}
 
-    top:100px;
-    right:75px;
-}
+	#releaseTable td{
+		border-top:1px solid black;
+		border-bottom:1px solid black;	
+	}
 
-.center{
-	margin-left: auto;
-	margin-right: auto;
-}
+	.title-column{
+		font-weight:bold;
+	}
 
-#registration-submit,
-#login-submit{
-	width:200px;
-}
+	/* Login/Logout/Registration*/
+	#registration-submit,
+	#login-submit{
+		width:200px;
+	}
 
-.fixed-bottom{
-	margin-bottom:50px;
-}
+/* About and Home page styling*/
+	#about-container{
+		color:white;
+		font-weight:bold;
+		font-size:18px;
+		width:70%;
+		text-align:center;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:70px;
+		font-family: 'Karla', sans-serif;
+	}
+
+	#about-container a{
+		color:yellow;
+	}
+
+/* Platform Badges*/
+	.platform-badge,
+	.platform-badge:hover{
+		color: #fff;
+		font-size:12px;
+		font-weight:bold;
+		width:100px;
+		margin-right:5px;
+		cursor:default !important;
+
+		padding-bottom: 6px;
+		padding-left: 6px;
+		padding-right: 6px;
+		padding-top: 6px;
+
+		margin-bottom:10px;
+	}
+
+	.badge-PC{
+		background-color: red;
+		border-color: darkred;
+	}
+
+	.badge-Vita,
+	.badge-Vita\(PSN\),
+	.badge-PS3\(PSN\),
+	.badge-PS4{
+		background-color: blue;
+		border-color: darkblue;
+	}
+
+	.badge-Switch,
+	.badge-WiiU,
+	.badge-3DS{
+		background-color: BlueViolet ;
+		border-color: DarkViolet;
+	}
+
+	.badge-Xbox,
+	.badge-360,
+	.badge-WindowsPhone{
+		background-color: Green ;
+		border-color: Green;
+	}
+
+	.badge-Theatrical,
+	.badge-Arcade,
+	.badge-NES,
+	.badge-Browser,
+	.badge-Android,
+	.badge-Linux,
+	.badge-2600,
+	.badge-FireTV{
+		background-color: gray ;	
+		border-color: gray;
+	}
+
+	.badge-iPad,
+	.badge-iPhone,
+	.badge-Mac,
+	.badge-iPad:hover,
+	.badge-iPhone:hover,
+	.badge-Mac:hover{
+		color: black;
+		background-color: white ;	
+		border-color: black;
+	}
+
+	.badge-Movie,
+	.badge-Movie:hover{
+		color:black;
+		background-color: #c3e6cb;
+		border-color: #8fd19e;
+	}
+
+	.badge-Game,
+	.badge-Game:hover{
+		color:black;
+		background-color: #b8daff;
+		border-color: #7abaff;
+	}
+	.badge-TBA,
+	.badge-TBA:hover{
+		color:black;
+		background-color: yellow;
+		border-color: black;
+	}
+
+/* Small screen/Responsive tweaks*/
+	@media only screen and (max-width: 992px) {
+	  .navbar-links {
+	    padding-left:0px;
+	  }
+	}
