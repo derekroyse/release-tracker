@@ -35,7 +35,11 @@
 	}
 
 	.navbar-links{
-		padding-left:200px;
+		padding-left:10%;
+	}
+
+	.navbar a{
+		color:gold;
 	}
 
 /* List page styles*/
@@ -96,12 +100,30 @@
 		text-align:center;
 		margin-left:auto;
 		margin-right:auto;
-		margin-top:70px;
+		/*margin-top:70px;*/
 		font-family: 'Karla', sans-serif;
 	}
 
 	#about-container a{
-		color:yellow;
+		color:gold;
+	}
+
+	#about-container h1{
+		color:black;
+	}
+
+	#about-container hr{
+		padding-bottom:70px;
+	}
+
+	#about-container .jumbotron{
+		padding-top:50px;
+		padding-bottom:40px;
+		/*background-image:url("https://images.pexels.com/photos/59305/pexels-photo-59305.png?auto=compress&cs=tinysrgb&h=750&w=940");*/
+		background:black;
+		background-image: url("/images/about-bg.jpg");
+	    /*background-repeat:no-repeat;*/
+	    /*background-position:50% 50%;  	*/
 	}
 
 /* Platform Badges*/
