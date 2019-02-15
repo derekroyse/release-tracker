@@ -30,8 +30,10 @@
 	$query = null;
 
 	if(!$rowid){
-		echo 'Error: Could not add User.';
+		echo 'An Error occured: Could not add user.';
+	} else if ($rowid == -1){
+		echo 'Registration failed. Email already registered.';
 	} else {
-		echo 'User added successfully!';
+		echo 'User added successfully!' . $rowid;
 	}
 ?>

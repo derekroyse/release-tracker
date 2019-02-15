@@ -217,9 +217,15 @@
 		
 		$query = null;
 		
+		// Email results.
+		// $message = $rows_added . ' titles added successfully @' . date("D M d, Y G:i");
+		// $message = wordwrap($message, 70, "\r\n");
+		// mail('derekroyse@gmail.com', 'Release Tracker - Nightly Update', $message);
+
 		echo $rows_added . ' titles added successfully!';
 
 		echo "<pre>";
-    print_r($master_array);
-    echo "</pre>";
+    	print_r($master_array);
+    	echo "</pre>";
+
 ?>

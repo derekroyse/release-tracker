@@ -1,7 +1,8 @@
 /* Site wide styles*/
 	body{
-	 	background-image: url("/images/bg.jpeg");
+	 	background-image: url("/images/bg2.jpg");
 	 	background-attachment: fixed;
+	 	background-position: center; 
 	 	background-color: #2952a3;
 	}
 
@@ -23,7 +24,7 @@
 	}
 
 	footer a{
-		color:yellow;
+		color:gold;
 	}
 
 	#main-container {
@@ -89,11 +90,11 @@
 	#registration-submit,
 	#login-submit{
 		width:200px;
-	}
+	}	
 
 /* About and Home page styling*/
 	#about-container{
-		color:white;
+		/*color:white;*/
 		font-weight:bold;
 		font-size:18px;
 		width:70%;
@@ -105,7 +106,7 @@
 	}
 
 	#about-container a{
-		color:gold;
+		/*color:gold;*/
 	}
 
 	#about-container h1{
@@ -113,15 +114,15 @@
 	}
 
 	#about-container hr{
-		padding-bottom:70px;
+		/*padding-bottom:70px;*/
 	}
 
 	#about-container .jumbotron{
 		padding-top:50px;
 		padding-bottom:40px;
 		/*background-image:url("https://images.pexels.com/photos/59305/pexels-photo-59305.png?auto=compress&cs=tinysrgb&h=750&w=940");*/
-		background:black;
-		background-image: url("/images/about-bg.jpg");
+		/*background:black;*/
+		/*background-image: url("/images/about-bg.jpg");*/
 	    /*background-repeat:no-repeat;*/
 	    /*background-position:50% 50%;  	*/
 	}

@@ -4,11 +4,6 @@ $(function() {
 	$("#login-submit").click(function(e){login(e);});
 });
 
-// Check if an email has registed previously.
-function emailExists(email) {
-	return false;
-}
-
 function registerUser(e){
 	var regexEmail = /^([A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/;
 	var $errors = 0;
@@ -60,36 +55,28 @@ function registerUser(e){
 		e.preventDefault();
 		return;
 	}
-	// If there are no errors, continue with adding user.
-	if ( emailExists(email) ){
-		window.location = '/?go=account:email-exists&email=' + email;
-		return;
-	} else{        
-		var fd = new FormData();   
-			fd.append('email', document.getElementById("email").value);
-			fd.append('username', document.getElementById("username").value);
-			fd.append('password', document.getElementById("password").value);
+	// If there are no errors, continue with adding user.   
+	var fd = new FormData();   
+		fd.append('email', document.getElementById("email").value);
+		fd.append('username', document.getElementById("username").value);
+		fd.append('password', document.getElementById("password").value);
 
-		var results = $.ajax({
-			type: "POST",
-			dataType: "json",
-			data: fd,
-			async: false,
-			processData: false,
-			contentType: false,		
-			url: "lib/addUser.php",
-			beforeSend: function() {
-				$(document.body).addClass('loading');
-				$( "div" ).css( "opacity", "0.9" );
-			},
-			complete: function(data){
-				alert(JSON.stringify(data.responseText));
-			},
-		});
-		e.preventDefault();
-	}
-	
-	$('.form-control').val('');
+	var results = $.ajax({
+		type: "POST",
+		dataType: "json",
+		data: fd,
+		async: false,
+		processData: false,
+		contentType: false,		
+		url: "lib/addUser.php",
+		beforeSend: function() {
+			$(document.body).addClass('loading');
+		},
+		complete: function(data){
+			$('#toast-text').html(data.responseText);
+			$('#registration-toast').toast('show');
+		},
+	});
 	e.preventDefault();
 }
 
