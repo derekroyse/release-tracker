@@ -43,6 +43,25 @@
 		color:gold;
 	}
 
+	.toast{
+		width: 50%;
+		position: fixed;
+		min-height: 100px;		
+		background-color:rgba(255, 255, 255, 1);
+	}
+
+	.toast-body{
+		padding-top:.5rem;
+	}
+
+	.toast1{				
+		top: 50px;
+	}
+
+	.toast2{
+		top: 75px;
+	}
+
 /* List page styles*/
 	#filterPanel{
 		background-color:#77deee;
@@ -118,10 +137,10 @@
 	}
 
 	#about-container .jumbotron{
-		padding-top:50px;
+		padding-top:20px;
 		padding-bottom:40px;
 		/*background-image:url("https://images.pexels.com/photos/59305/pexels-photo-59305.png?auto=compress&cs=tinysrgb&h=750&w=940");*/
-		/*background:black;*/
+		background:inherit;
 		/*background-image: url("/images/about-bg.jpg");*/
 	    /*background-repeat:no-repeat;*/
 	    /*background-position:50% 50%;  	*/

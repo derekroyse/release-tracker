@@ -1,5 +1,3 @@
-
-
 <div id="about-container">
   <div class="jumbotron">
     <h1 class="display-5">Register</h1>
@@ -7,8 +5,8 @@
     <form class="col-sm-6 center">
       <div class="form-group">
         <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted text-center">We will only use your email to allow you to reset your password and to send you release updates if you want them.</small>
+        <input type="email" class="form-control" id="email_field" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted text-center">We will only use your email to allow you to reset your password and to send you release updates if you want them.</small>        
       </div>
       <div class="form-group">
         <label for="username">Username</label>
@@ -18,6 +16,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" placeholder="Password">
+        <small id="passwordHelp" class="form-text text-muted text-center"></small>        
       </div>
       <div class="text-center">
         <button type="submit" id="registration-submit" class="btn btn-primary text-center">Submit</button>
@@ -26,18 +25,30 @@
   </div>
 </div>
 
-<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-  <div id="registration-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
-    <div class="toast-header">
-      <img src="..." class="rounded mr-2" alt="...">
-      <strong class="mr-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center">
+  <div id="registration-failure" class="toast toast1" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <div class="toast-header bg-danger text-white">
+      <strong class="mr-auto">Alert</strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="toast-body">
-      <span id="toast-text"></span>
+      <span id="failure-text"></span>
+    </div>
+  </div>
+</div>
+
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center">
+  <div id="registration-success" class="toast toast2" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <div class="toast-header bg-success text-white">
+      <strong class="mr-auto">Success</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      <span id="success-text"></span>
     </div>
   </div>
 </div>

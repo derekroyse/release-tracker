@@ -34,6 +34,6 @@
 	} else if ($rowid == -1){
 		echo 'Registration failed. Email already registered.';
 	} else {
-		echo 'User added successfully!' . $rowid;
+		echo 'User added successfully!';
 	}
 ?>
