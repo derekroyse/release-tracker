@@ -78,24 +78,10 @@ function registerUser(e){
 			processData: false,
 			contentType: false,		
 			url: "lib/addUser.php",
-			beforeSend: function() {
-				// $(document.body).addClass('loading');
-			},
 			complete: function(data){
-				if (data.responseText.includes('success')){
-					$('#success-text').html(data.responseText);
-					$('#registration-success').toast('show');
-				} else {
-					$('#failure-text').html(data.responseText);
-					$('#registration-failure').toast('show');
-				}
-				// $('#alert-text').html(data.responseText);
-				// $('.alert').addClass("show");
-				// $('.alert').css("display", "block");
-				// $('.alert').alert();			
+				bootbox.alert(data.responseText);
 			},
-		});
-				
+		});				
 	}
 
 	e.preventDefault();
@@ -115,10 +101,6 @@ function login(e){
 		processData: false,
 		contentType: false,		
 		url: "lib/login.php",
-		beforeSend: function() {
-			$(document.body).addClass('loading');
-			$( "div" ).css( "opacity", "0.9" );
-		},
 		complete: function(data){
 			var response = JSON.stringify(data.responseText);
 			if (response == '"true"'){
@@ -126,7 +108,7 @@ function login(e){
 			} else {
 				// else clear fields and provide incorrect password message
 				$('.form-control').val('');
-				alert('Invalid password!');
+				bootbox.alert("Invalid username/password.");
 			}
 		},
 	});

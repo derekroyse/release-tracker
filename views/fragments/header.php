@@ -23,6 +23,7 @@
   <script type="text/javascript" src="/js/datatables/dataTables.responsive.min.js"></script>
   <script type="text/javascript" src="/js/datatables/responsive.bootstrap4.min.js"></script>
   <script type="text/javascript" src="/js/main.js"></script>
+  <script type="text/javascript" src="https://github.com/makeusabrew/bootbox/releases/download/v4.4.0/bootbox.min.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"> 
 </head>
