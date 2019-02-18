@@ -1,14 +1,18 @@
-<?php
+<?php	
+	// Report errors while testing.
+	// error_reporting(E_ALL);
+	// ini_set('display_errors', '1');
 	session_start();
 
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
-
+	// Get Heroku values on production.
 	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+	$hash_key = getenv("HASH_KEY");
+
+	// Test for Heroku values. If they don't exist, use dev DB.
 	if (array_key_exists("host", $url)){
-	    $server = $url["host"];
-	    $username = $url["user"];
-	    $password = $url["pass"];
+		$server = $url["host"];
+		$username = $url["user"];
+		$password = $url["pass"];
 		$db = substr($url["path"], 1);
 		$conn = new mysqli($server, $username, $password, $db);
 	} else {
@@ -19,20 +23,26 @@
 		$conn = new mysqli($servername, $username, $password, $db);
 	}
 
+	// Use dummy hash on production.
+	if (!$hash_key){
+		$hash_key = 'test';
+	}
+
+	// Build and execute query.
 	$sql = "SELECT * FROM users
 		WHERE email = ?
 		AND password = ?";
-
 	$query = $conn->prepare($sql);
-	$hashed_password = crypt($_POST['password'], 'test');
-
-	$query->bind_param('ss', $_POST['email'], $hashed_password);	
-
+	$hashed_password = crypt($_POST['password'], $hash_key);
+	$query->bind_param('ss', $_POST['email'], $hashed_password);
 	$query->execute();
+
+	$rows = null;
 	$result = $query->get_result();
 	$rows = $result->num_rows;	
 	$query = null;
 
+	// Return results.
 	if($rows < 1){
 		echo 'false';
 	} else {

@@ -1,5 +1,4 @@
 		<div class="clearfix"></div>
-		</main>	
 		<footer>
 			<div id="footer-inner" class="row">
 				<div class="text-center center">

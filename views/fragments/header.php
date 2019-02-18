@@ -67,4 +67,3 @@
     </div>
   </nav>
   <!-- Start main content -->
-  <main id="main-container" class="flex-container" role="main">
