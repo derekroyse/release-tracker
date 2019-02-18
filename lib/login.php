@@ -1,7 +1,7 @@
 <?php	
 	// Report errors while testing.
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+	//error_reporting(E_ALL);
+	// ini_set('display_errors', '1');
 	session_start();
 
 	// Get Heroku values on production.
@@ -27,8 +27,6 @@
 	if (!$hash_key){
 		$hash_key = 'test';
 	}
-
-	echo $hash_key;
 
 	// Build and execute query.
 	$sql = "SELECT * FROM users

@@ -95,6 +95,7 @@
 		margin-right:auto;
 		/*margin-top:70px;*/
 		font-family: 'Karla', sans-serif;
+		width:50%;
 	}
 
 	#about-container a{
@@ -217,6 +218,7 @@
 		#about-container{
 			font-weight:bold;
 			font-size:14px;
+			width:100%;
 		}
 
 		#about-container h1{
