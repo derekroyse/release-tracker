@@ -146,7 +146,8 @@
 	.badge-Vita,
 	.badge-Vita\(PSN\),
 	.badge-PS3\(PSN\),
-	.badge-PS4{
+	.badge-PS4,
+	.badge-PS5{        
 		background-color: blue;
 		border-color: darkblue;
 	}
@@ -161,7 +162,8 @@
 	.badge-Xbox,
 	.badge-XboxOne,
 	.badge-360,
-	.badge-WindowsPhone{
+	.badge-WindowsPhone,
+	.badge-XboxSeriesX{	
 		background-color: Green ;
 		border-color: Green;
 	}
@@ -173,7 +175,12 @@
 	.badge-Android,
 	.badge-Linux,
 	.badge-2600,
-	.badge-FireTV{
+	.badge-FireTV,
+	.badge-Amico,
+	.badge-Stadia,
+	.badge-Evercade,
+	.badge-Oculus,
+	.badge-Stream{
 		background-color: gray ;	
 		border-color: gray;
 	}
