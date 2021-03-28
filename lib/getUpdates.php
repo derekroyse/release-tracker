@@ -39,6 +39,8 @@
 		// Close curl session.
 		curl_close($curl);
 
+		print_r($response_json);
+
 		// Add each title to master array.
 		foreach($response_array as $movie){
 			$temp_array = array(
