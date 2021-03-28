@@ -15,7 +15,7 @@
 			$curl = curl_init();
 			$today = date("Y-m-d");
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=4bfcf1281ed7338461685e64a5cc0f3c&language=en-US&region=US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=" . $page_num . "&primary_release_date.gte=2019-02-08",
+				CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=4bfcf1281ed7338461685e64a5cc0f3c&language=en-US&region=US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&page=" . $page_num . "&primary_release_date.gte=2021-03-25",
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
