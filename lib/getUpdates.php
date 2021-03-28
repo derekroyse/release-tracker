@@ -169,11 +169,12 @@
 				"PlayStation Network (PS3)" => "PS3(PSN)",
 				"PlayStation Network (Vita)" => "Vita(PSN)",
 				"PlayStation Vita" => "Vita",
+				"Stream" => "Strea",
 				"Xbox" => "Xbox",
 				"Xbox 360" => "X360",
 				"Xbox 360 Games Store" => "X360",
 				"Xbox One" => "XboxOne",
-				"Xbox Series X|S" => "Xbox Series X",
+				"Xbox Series X|S" => "XboxSeriesX",
 				"Wii U" => "WiiU",
 				"Windows Phone" => "WindowsPhone"
 			);				
